@@ -177,23 +177,23 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-3 relative group/input">
-                      <label className="text-xs text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Full Name</label>
+                      <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Full Name</label>
                       <input
                         type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full bg-transparent border-b-2 border-gray-200 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-800 text-lg"
+                        className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-600 text-lg"
                         placeholder="John Doe"
                       />
                     </div>
                     <div className="space-y-3 relative group/input">
-                      <label className="text-xs text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Email Address <span className="normal-case text-gray-500 tracking-normal">(optional)</span></label>
+                      <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Email Address <span className="normal-case text-gray-400 dark:text-gray-500 tracking-normal">(optional)</span></label>
                       <input
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="w-full bg-transparent border-b-2 border-gray-200 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-800 text-lg"
+                        className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-600 text-lg"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -201,22 +201,22 @@ const Contact = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-3 relative group/input">
-                      <label className="text-xs text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Phone Number</label>
+                      <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Phone Number</label>
                       <input
                         type="tel"
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        className="w-full bg-transparent border-b-2 border-gray-200 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-800 text-lg"
+                        className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-600 text-lg"
                         placeholder="+91 95632 12598"
                       />
                     </div>
                     <div className="space-y-3 relative group/input">
-                      <label className="text-xs text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Event Type</label>
+                      <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Event Type</label>
                       <select
                         value={formData.eventType}
                         onChange={(e) => setFormData({...formData, eventType: e.target.value})}
-                        className="w-full bg-transparent border-b-2 border-gray-200 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors appearance-none cursor-pointer text-lg"
+                        className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors appearance-none cursor-pointer text-lg"
                       >
                         <option value="Wedding" className="text-black">Wedding</option>
                         <option value="Pre-Wedding" className="text-black">Pre-Wedding</option>
@@ -229,13 +229,13 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-3 relative group/input">
-                    <label className="text-xs text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Tell us about your event</label>
+                    <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Tell us about your event</label>
                     <textarea
                       rows="4"
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      className="w-full bg-transparent border-b-2 border-gray-200 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors resize-none placeholder:text-gray-300 dark:placeholder:text-gray-800 text-lg"
+                      className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors resize-none placeholder:text-gray-400 dark:placeholder:text-gray-600 text-lg"
                       placeholder="Dates, locations, specific requirements..."
                     ></textarea>
                   </div>
