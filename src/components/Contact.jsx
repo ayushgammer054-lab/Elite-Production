@@ -73,8 +73,8 @@ const Contact = () => {
     <section id="contact" className="py-32 bg-gray-50 dark:bg-[#050505] relative overflow-hidden transition-colors duration-300">
       {/* Premium Background Elements */}
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.03]" />
-      <div className="absolute top-1/4 -left-64 w-[600px] h-[600px] bg-gold-500/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-32 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 -left-64 w-[600px] h-[600px] bg-gold-500/5 rounded-full blur-[150px] pointer-events-none transform-gpu will-change-transform" />
+      <div className="absolute bottom-0 -right-32 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[120px] pointer-events-none transform-gpu will-change-transform" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="text-center mb-20">
@@ -96,7 +96,7 @@ const Contact = () => {
           />
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-16 max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-16 max-w-7xl mx-auto">
 
           {/* Contact Info */}
           <motion.div
@@ -104,11 +104,13 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="w-full lg:w-1/3 space-y-12"
+            className="w-full lg:w-5/12 space-y-12"
           >
             <div>
-              <h3 className="text-3xl font-serif text-black dark:text-white mb-6 transition-colors duration-300">Contact Information</h3>
-              <p className="text-gray-600 dark:text-gray-400 font-light mb-8 text-lg leading-relaxed transition-colors duration-300">Reach out to discuss your upcoming events, collaborations, or custom projects.</p>
+              <h3 className="text-3xl lg:text-4xl font-serif text-black dark:text-white mb-6 transition-colors duration-300 leading-tight">We'd love to hear from you.</h3>
+              <p className="text-gray-600 dark:text-gray-400 font-light text-lg leading-relaxed transition-colors duration-300">
+                Whether you're planning a grand wedding, a brand campaign, or a custom cinematic project, our team is ready to bring your vision to life.
+              </p>
             </div>
 
             <div className="space-y-8">
@@ -117,13 +119,13 @@ const Contact = () => {
                 { icon: Mail, title: 'Email Address', content: contactInfo.email || CONTACT_DEFAULTS.email },
                 { icon: MapPin, title: 'Studio Location', content: locationLines.map((line, i) => <span key={i}>{line}{i < locationLines.length - 1 && <br />}</span>) }
               ].map((item, index) => (
-                <div key={index} className="flex items-start gap-6 group">
-                  <div className="w-14 h-14 bg-white dark:bg-[#111] rounded-full border border-gray-100 dark:border-white/5 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:border-gold-500 transition-all duration-500">
+                <div key={index} className="flex items-start gap-6 group cursor-pointer">
+                  <div className="w-14 h-14 bg-white dark:bg-[#111] rounded-2xl border border-gray-100 dark:border-white/5 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:border-gold-500/50 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.15)] transition-all duration-500">
                     <item.icon className="w-6 h-6 text-gold-500 group-hover:scale-110 transition-transform duration-500" />
                   </div>
-                  <div>
-                    <p className="text-gray-800 dark:text-white font-medium mb-2 uppercase tracking-widest text-xs transition-colors duration-300">{item.title}</p>
-                    <p className="text-gray-600 dark:text-gray-400 font-light transition-colors duration-300 leading-relaxed">
+                  <div className="pt-1">
+                    <p className="text-gray-500 dark:text-gray-400 font-medium mb-1 uppercase tracking-widest text-[10px] transition-colors duration-300">{item.title}</p>
+                    <p className="text-black dark:text-white font-medium text-lg transition-colors duration-300 group-hover:text-gold-600 dark:group-hover:text-gold-400">
                       {item.content}
                     </p>
                   </div>
@@ -132,19 +134,12 @@ const Contact = () => {
             </div>
 
             <div className="pt-10 border-t border-black/5 dark:border-white/5 transition-colors duration-300">
-              <p className="text-black dark:text-white font-serif text-xl mb-6 transition-colors duration-300">Follow My Journey</p>
+              <p className="text-gray-500 dark:text-gray-400 font-medium mb-6 uppercase tracking-widest text-[10px] transition-colors duration-300">Follow My Journey</p>
               <div className="flex gap-4">
-                {contactInfo.instagramUrl && contactInfo.instagramUrl !== '#' ? (
-                  <a href={contactInfo.instagramUrl} target="_blank" rel="noopener noreferrer"
-                    className="w-12 h-12 bg-white dark:bg-[#111] border border-gray-100 dark:border-white/5 rounded-full flex items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gold-500 hover:text-white hover:border-gold-500 transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1">
-                    <InstagramIcon />
-                  </a>
-                ) : (
-                  <a href="#"
-                    className="w-12 h-12 bg-white dark:bg-[#111] border border-gray-100 dark:border-white/5 rounded-full flex items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gold-500 hover:text-white hover:border-gold-500 transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1">
-                    <InstagramIcon />
-                  </a>
-                )}
+                <a href={contactInfo.instagramUrl || '#'} target="_blank" rel="noopener noreferrer"
+                  className="w-12 h-12 bg-white dark:bg-[#111] border border-gray-100 dark:border-white/5 rounded-xl flex items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gradient-to-tr hover:from-gold-600 hover:to-gold-400 hover:text-white hover:border-transparent transition-all duration-300 shadow-sm hover:shadow-[0_10px_20px_rgba(212,175,55,0.3)] hover:-translate-y-1">
+                  <InstagramIcon />
+                </a>
               </div>
             </div>
           </motion.div>
@@ -155,68 +150,63 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full lg:w-2/3"
+            className="w-full lg:w-7/12"
           >
-            <div className="bg-white dark:bg-[#0a0a0a] p-10 md:p-14 rounded-2xl border border-gray-100 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] transition-colors duration-300 relative overflow-hidden group">
+            <div className="bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-xl p-8 md:p-12 rounded-3xl border border-white/50 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] transition-colors duration-300 relative overflow-hidden group">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent opacity-50" />
               
               {submitted ? (
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center h-full min-h-[400px] text-center"
+                  className="flex flex-col items-center justify-center h-full min-h-[450px] text-center"
                 >
                   <motion.div
                     initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
                   >
-                    <CheckCircle className="w-20 h-20 text-gold-500 mb-6 drop-shadow-lg" />
+                    <div className="w-24 h-24 bg-gold-500/10 rounded-full flex items-center justify-center mb-6">
+                      <CheckCircle className="w-12 h-12 text-gold-500 drop-shadow-lg" />
+                    </div>
                   </motion.div>
                   <h3 className="text-3xl font-serif text-black dark:text-white mb-4">Inquiry Sent!</h3>
                   <p className="text-gray-500 dark:text-gray-400 text-lg font-light max-w-sm">Your message was saved and WhatsApp opened. We'll be in touch shortly.</p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-3 relative group/input">
-                      <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Full Name</label>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/5 rounded-2xl px-5 py-3 focus-within:border-gold-500/50 focus-within:ring-1 focus-within:ring-gold-500/50 transition-all duration-300 group/input hover:border-gray-300 dark:hover:border-white/10">
+                      <label className="text-[10px] text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold block mb-1">Full Name</label>
                       <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-600 text-lg"
+                        type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        className="w-full bg-transparent text-black dark:text-white focus:outline-none placeholder:text-gray-400 dark:placeholder:text-gray-600 font-medium text-base md:text-lg"
                         placeholder="John Doe"
                       />
                     </div>
-                    <div className="space-y-3 relative group/input">
-                      <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Email Address <span className="normal-case text-gray-400 dark:text-gray-500 tracking-normal">(optional)</span></label>
+                    
+                    <div className="bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/5 rounded-2xl px-5 py-3 focus-within:border-gold-500/50 focus-within:ring-1 focus-within:ring-gold-500/50 transition-all duration-300 group/input hover:border-gray-300 dark:hover:border-white/10">
+                      <label className="text-[10px] text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold block mb-1">Email <span className="normal-case opacity-60">(optional)</span></label>
                       <input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-600 text-lg"
+                        type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        className="w-full bg-transparent text-black dark:text-white focus:outline-none placeholder:text-gray-400 dark:placeholder:text-gray-600 font-medium text-base md:text-lg"
                         placeholder="john@example.com"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-3 relative group/input">
-                      <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Phone Number</label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/5 rounded-2xl px-5 py-3 focus-within:border-gold-500/50 focus-within:ring-1 focus-within:ring-gold-500/50 transition-all duration-300 group/input hover:border-gray-300 dark:hover:border-white/10">
+                      <label className="text-[10px] text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold block mb-1">Phone Number</label>
                       <input
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-600 text-lg"
+                        type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        className="w-full bg-transparent text-black dark:text-white focus:outline-none placeholder:text-gray-400 dark:placeholder:text-gray-600 font-medium text-base md:text-lg"
                         placeholder="+91 95632 12598"
                       />
                     </div>
-                    <div className="space-y-3 relative group/input">
-                      <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Event Type</label>
+                    
+                    <div className="bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/5 rounded-2xl px-5 py-3 focus-within:border-gold-500/50 focus-within:ring-1 focus-within:ring-gold-500/50 transition-all duration-300 group/input hover:border-gray-300 dark:hover:border-white/10">
+                      <label className="text-[10px] text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold block mb-1">Event Type</label>
                       <select
-                        value={formData.eventType}
-                        onChange={(e) => setFormData({...formData, eventType: e.target.value})}
-                        className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors appearance-none cursor-pointer text-lg"
+                        value={formData.eventType} onChange={(e) => setFormData({...formData, eventType: e.target.value})}
+                        className="w-full bg-transparent text-black dark:text-white focus:outline-none appearance-none cursor-pointer font-medium text-base md:text-lg"
                       >
                         <option value="Wedding" className="text-black">Wedding</option>
                         <option value="Pre-Wedding" className="text-black">Pre-Wedding</option>
@@ -228,14 +218,11 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-3 relative group/input">
-                    <label className="text-xs text-gray-600 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold transition-colors duration-300">Tell us about your event</label>
+                  <div className="bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/5 rounded-2xl px-5 py-3 focus-within:border-gold-500/50 focus-within:ring-1 focus-within:ring-gold-500/50 transition-all duration-300 group/input hover:border-gray-300 dark:hover:border-white/10">
+                    <label className="text-[10px] text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase font-semibold block mb-2">Tell us about your event</label>
                     <textarea
-                      rows="4"
-                      required
-                      value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      className="w-full bg-transparent border-b-2 border-gray-300 dark:border-white/10 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-gold-500 transition-colors resize-none placeholder:text-gray-400 dark:placeholder:text-gray-600 text-lg"
+                      rows="4" required value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      className="w-full bg-transparent text-black dark:text-white focus:outline-none resize-none placeholder:text-gray-400 dark:placeholder:text-gray-600 font-medium text-base md:text-lg"
                       placeholder="Dates, locations, specific requirements..."
                     ></textarea>
                   </div>
@@ -245,7 +232,7 @@ const Contact = () => {
                     whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={submitting}
-                    className="w-full py-5 bg-gold-500 text-black font-bold tracking-[0.2em] uppercase hover:bg-gold-400 transition-colors mt-8 flex items-center justify-center gap-3 disabled:opacity-70 rounded-sm shadow-xl shadow-gold-500/20"
+                    className="w-full py-5 bg-gradient-to-r from-gold-600 to-gold-400 text-black font-bold tracking-[0.2em] uppercase transition-all mt-4 flex items-center justify-center gap-3 disabled:opacity-70 rounded-xl shadow-[0_10px_30px_rgba(212,175,55,0.25)] hover:shadow-[0_15px_40px_rgba(212,175,55,0.4)]"
                   >
                     {submitting
                       ? <><Loader2 className="w-5 h-5 animate-spin" /> Sending...</>
