@@ -40,7 +40,7 @@ const Footer = () => {
 
           <div className="flex flex-col items-center md:items-start gap-3">
             <div className="flex items-center gap-2 group cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-              <img src="/logo-transparent.png" alt="Elite Studio" className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-lg" />
+              <img src="/logo-transparent.png" alt="Elite Studio" className="h-20 md:h-28 lg:h-32 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-lg" />
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 text-center md:text-left uppercase tracking-widest max-w-xs">
               Premium Wedding &amp; Cinematic Production
