@@ -49,7 +49,7 @@ const Hero = () => {
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }}
-          className="text-5xl md:text-7xl lg:text-[7.5rem] font-serif text-white mb-6 leading-[1.1] drop-shadow-2xl"
+          className="text-5xl md:text-7xl lg:text-[7.5rem] font-serif text-white mb-6 leading-[1.1] drop-shadow-2xl will-change-transform transform-gpu"
         >
           {content.title} <span className="italic text-gold-400 font-light pr-2">{content.titleItalic}</span>
           <br /><span className="text-4xl md:text-6xl lg:text-7xl">That Feel Like Forever</span>
@@ -57,7 +57,7 @@ const Hero = () => {
 
         <motion.p
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.6 }}
-          className="text-gray-200 text-base md:text-lg lg:text-xl font-light mb-12 max-w-3xl leading-relaxed drop-shadow-lg"
+          className="text-gray-200 text-base md:text-lg lg:text-xl font-light mb-12 max-w-3xl leading-relaxed drop-shadow-lg will-change-transform transform-gpu"
         >
           {content.subtitle}
         </motion.p>

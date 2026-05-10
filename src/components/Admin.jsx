@@ -1077,15 +1077,15 @@ const ContactTab = () => {
 // MAIN ADMIN COMPONENT
 // ═══════════════════════════════════════════════════════════════════════════════
 const tabs = [
-  { id: 'dashboard',  label: 'Dashboard',   icon: <LayoutDashboard className="w-4 h-4" /> },
-  { id: 'portfolio',  label: 'Portfolio',   icon: <Film className="w-4 h-4" /> },
-  { id: 'hero',       label: 'Hero',        icon: <Camera className="w-4 h-4" /> },
-  { id: 'cinematic',  label: 'Showreel',    icon: <PlayCircle className="w-4 h-4" /> },
-  { id: 'gallery',    label: 'Gallery',     icon: <Images className="w-4 h-4" /> },
-  { id: 'about',      label: 'About',       icon: <Sparkles className="w-4 h-4" /> },
-  { id: 'services',   label: 'Services',    icon: <Aperture className="w-4 h-4" /> },
-  { id: 'contact',    label: 'Contact Info', icon: <Smartphone className="w-4 h-4" /> },
-  { id: 'inquiries',  label: 'Inquiries',   icon: <MessageSquare className="w-4 h-4" /> },
+  { id: 'dashboard', label: 'Dashboard',   desc: 'Stats & overview',         icon: <LayoutDashboard className="w-5 h-5" />, color: 'text-blue-500',   bg: 'bg-blue-500/10'   },
+  { id: 'inquiries', label: 'Inquiries',   desc: 'Customer leads & messages', icon: <MessageSquare  className="w-5 h-5" />, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+  { id: 'portfolio', label: 'Portfolio',   desc: 'Video projects & work',     icon: <Film           className="w-5 h-5" />, color: 'text-purple-500', bg: 'bg-purple-500/10' },
+  { id: 'gallery',   label: 'Gallery',     desc: 'Photos & social embeds',    icon: <Images         className="w-5 h-5" />, color: 'text-pink-500',   bg: 'bg-pink-500/10'   },
+  { id: 'cinematic', label: 'Showreel',    desc: 'Main featured video',       icon: <PlayCircle     className="w-5 h-5" />, color: 'text-red-500',    bg: 'bg-red-500/10'    },
+  { id: 'hero',      label: 'Homepage',    desc: 'Hero text & background',    icon: <Camera         className="w-5 h-5" />, color: 'text-amber-500',  bg: 'bg-amber-500/10'  },
+  { id: 'about',     label: 'About',       desc: 'Founder info & bio',        icon: <Sparkles       className="w-5 h-5" />, color: 'text-gold-500',   bg: 'bg-gold-500/10'   },
+  { id: 'services',  label: 'Services',    desc: 'Service cards & pricing',   icon: <Aperture       className="w-5 h-5" />, color: 'text-cyan-500',   bg: 'bg-cyan-500/10'   },
+  { id: 'contact',   label: 'Contact Info', desc: 'Phone, email & location',  icon: <Smartphone     className="w-5 h-5" />, color: 'text-indigo-500', bg: 'bg-indigo-500/10' },
 ];
 
 const Admin = () => {
@@ -1164,55 +1164,110 @@ const Admin = () => {
       <div className="container mx-auto px-4 md:px-8 max-w-5xl">
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-serif text-black dark:text-white">Admin Dashboard</h1>
-            <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Manage your entire website from here</p>
+            <h1 className="text-2xl md:text-3xl font-serif text-black dark:text-white">Elite Studio</h1>
+            <p className="text-gray-400 text-xs mt-0.5 uppercase tracking-wider">Admin Panel</p>
           </div>
-          <div className="flex items-center gap-3">
-            <Link to="/" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gold-500 transition-colors">
-              <ArrowLeft className="w-4 h-4" /> Back to Site
+          <div className="flex items-center gap-2">
+            <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gold-500 transition-colors bg-gray-100 dark:bg-white/5 px-3 py-2 rounded-lg">
+              <ArrowLeft className="w-3.5 h-3.5" /> Site
             </Link>
             <button
               onClick={() => { sessionStorage.removeItem('adminAuth'); setAuthenticated(false); }}
-              className="text-xs text-red-400 hover:text-red-600 border border-red-200 dark:border-red-900 px-3 py-1.5 rounded-lg transition-colors"
+              className="text-xs text-red-400 hover:text-red-600 border border-red-200 dark:border-red-900 px-3 py-2 rounded-lg transition-colors"
             >
               Logout
             </button>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex overflow-x-auto gap-2 mb-8 pb-2 scrollbar-hide">
-          {tabs.map(tab => (
+        {/* Nav Grid — show when no active section, or as compact strip */}
+        {activeTab === 'dashboard' ? (
+          /* Full grid on dashboard */
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-8">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative flex flex-col items-center gap-2 p-3 md:p-4 rounded-2xl border text-center transition-all active:scale-95 ${
+                  tab.id === 'dashboard'
+                    ? 'bg-gold-500 text-black border-gold-500 shadow-lg'
+                    : 'bg-white dark:bg-[#111] border-gray-100 dark:border-white/5 hover:border-gold-500/50 hover:shadow-md'
+                }`}
+              >
+                <div className={`p-2 rounded-xl ${tab.id === 'dashboard' ? 'bg-black/10' : tab.bg}`}>
+                  <span className={tab.id === 'dashboard' ? 'text-black' : tab.color}>{tab.icon}</span>
+                </div>
+                <span className={`text-xs font-semibold leading-tight ${tab.id === 'dashboard' ? 'text-black' : 'text-gray-700 dark:text-gray-300'}`}>
+                  {tab.label}
+                </span>
+                {tab.id === 'inquiries' && newInquiriesCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                    {newInquiriesCount > 9 ? '9+' : newInquiriesCount}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        ) : (
+          /* Compact strip when inside a section */
+          <div className="flex items-center gap-3 mb-6 bg-white dark:bg-[#111] border border-gray-100 dark:border-white/5 rounded-2xl p-3">
             <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
-                activeTab === tab.id
-                  ? 'bg-gold-500 text-black shadow-md'
-                  : 'bg-white dark:bg-[#111] text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-white/5 hover:border-gold-500 hover:text-gold-500'
-              }`}
+              onClick={() => setActiveTab('dashboard')}
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-gold-500 transition-colors shrink-0"
+            >
+              <LayoutDashboard className="w-4 h-4" /> <span className="hidden sm:inline">Menu</span>
+            </button>
+            <div className="w-px h-5 bg-gray-200 dark:bg-white/10" />
+            <div className="flex overflow-x-auto gap-2 scrollbar-hide">
+              {tabs.filter(t => t.id !== 'dashboard').map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
+                    activeTab === tab.id
+                      ? 'bg-gold-500 text-black'
+                      : 'text-gray-500 dark:text-gray-400 hover:text-gold-500'
+                  }`}
             >
               {tab.icon} {tab.label}
               {tab.id === 'inquiries' && newInquiriesCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                   {newInquiriesCount > 9 ? '9+' : newInquiriesCount}
                 </span>
               )}
             </button>
           ))}
-        </div>
+            </div>
+          </div>
+        )}
+
+        {/* Section Header */}
+        {activeTab !== 'dashboard' && (() => {
+          const t = tabs.find(t => t.id === activeTab);
+          return (
+            <div className={`flex items-center gap-3 mb-5 p-4 rounded-xl border ${t.bg} border-current/10`}>
+              <div className={`p-2 rounded-lg ${t.bg}`}>
+                <span className={t.color}>{t.icon}</span>
+              </div>
+              <div>
+                <h2 className="font-semibold text-black dark:text-white text-sm">{t.label}</h2>
+                <p className="text-xs text-gray-500">{t.desc}</p>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Tab Content */}
-        <div className="bg-white dark:bg-[#111] border border-gray-100 dark:border-white/5 rounded-2xl p-6 md:p-8 shadow-xl">
+        <div className="bg-white dark:bg-[#111] border border-gray-100 dark:border-white/5 rounded-2xl p-5 md:p-8 shadow-xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
             >
               {activeTab === 'dashboard'  && <DashboardTab onTabChange={setActiveTab} />}
               {activeTab === 'portfolio'  && <PortfolioTab />}
@@ -1226,10 +1281,6 @@ const Admin = () => {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        <p className="text-center text-xs text-gray-400 dark:text-gray-600 mt-6">
-          Password is set in <code className="bg-gray-100 dark:bg-white/5 px-1 rounded">.env.local</code> → <code className="bg-gray-100 dark:bg-white/5 px-1 rounded">VITE_ADMIN_PASSWORD</code>
-        </p>
       </div>
     </div>
   );

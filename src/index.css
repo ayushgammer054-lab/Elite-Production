@@ -9,7 +9,6 @@
   --color-gold-500: #D4AF37;
   --color-gold-600: #b89624;
   --color-gold-700: #8f7215;
-  
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
 }
@@ -18,80 +17,116 @@
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    scrollbar-gutter: stable;
+    /* iOS momentum scrolling */
+    -webkit-overflow-scrolling: touch;
+    text-rendering: optimizeSpeed;
   }
 
   body {
-    @apply bg-white text-gray-800 font-sans antialiased selection:bg-gold-500 selection:text-white overflow-x-hidden transition-colors duration-300;
+    @apply bg-white text-gray-800 font-sans antialiased selection:bg-gold-500 selection:text-white overflow-x-hidden;
+    /* Smoother font rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent content jump on color change */
+    transition: background-color 0.3s, color 0.3s;
   }
+
   .dark body {
     @apply bg-black text-gray-300 selection:text-black;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif text-black tracking-wide transition-colors duration-300;
+    @apply font-serif text-black tracking-wide;
+    transition: color 0.3s;
   }
+
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
     @apply text-white;
   }
 
-  /* Better tap targets on mobile */
   button, a {
     @apply touch-manipulation;
+    /* Prevent 300ms tap delay on mobile */
+    touch-action: manipulation;
   }
 
-  /* Prevent layout shift from scrollbar */
-  html {
-    scrollbar-gutter: stable;
+  section {
+    scroll-margin-top: 80px;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-/* ── Cinematic Effects ────────────────────────────── */
+/* ── GPU Compositing ──────────────────────────────────
+   Applied to animated/scroll elements via className
+   Promotes element to its own layer → no repaint     */
+.gpu {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ── Noise texture (cinematic sections) ─────────────── */
 .noise {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.2;
+  opacity: 0.15;
   background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
   background-repeat: repeat;
+  transform: translateZ(0);
   will-change: transform;
-  transform: translateZ(0); /* Force GPU compositing */
 }
 
-.dark .noise {
-  opacity: 0.15;
-}
+/* ── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #e5c058; }
 
-/* ── Custom Scrollbar ─────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f1f1f1; }
-.dark ::-webkit-scrollbar-track { background: #0a0a0a; }
-::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-.dark ::-webkit-scrollbar-thumb { background: #333; }
-::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
-
-/* ── Iframes ──────────────────────────────────────── */
+/* ── Iframes ──────────────────────────────────────────── */
 iframe { border: none; }
 
-/* ── Columns (masonry gallery) ────────────────────── */
+/* ── Masonry columns ──────────────────────────────────── */
 .columns-1 { column-count: 1; }
 .columns-2 { column-count: 2; }
 .columns-3 { column-count: 3; }
 
-/* ── Section responsive padding ──────────────────── */
-section {
-  scroll-margin-top: 80px;  /* Offset fixed navbar */
-}
-
-/* ── Cinematic glow animation ─────────────────────── */
+/* ── Cinematic glow animation ─────────────────────────── */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 40px rgba(212,175,55,0.05); }
-  50%       { box-shadow: 0 0 80px rgba(212,175,55,0.15); }
+  0%, 100% { opacity: 0.06; }
+  50%       { opacity: 0.14; }
 }
 .cinematic-glow {
   animation: glow-pulse 6s ease-in-out infinite;
-  will-change: box-shadow;
-  transform: translateZ(0); /* Force GPU compositing */
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+/* ── Smooth image loading ─────────────────────────────── */
+img {
+  content-visibility: auto;
+}
+
+/* ── Admin scrollbar hide (horizontal tab scroll) ─────── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ── Mobile tap feedback ──────────────────────────────── */
+@media (hover: none) {
+  .group:active .group-hover\:scale-110 { transform: scale(1.05); }
+  .group:active .group-hover\:opacity-100 { opacity: 1; }
 }

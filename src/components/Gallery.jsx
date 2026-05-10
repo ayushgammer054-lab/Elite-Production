@@ -84,7 +84,7 @@ const Gallery = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: (i % 5) * 0.1 }}
-                className="break-inside-avoid rounded-xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-all duration-500"
+                className="break-inside-avoid rounded-xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-[box-shadow,transform] duration-500 transform-gpu will-change-transform"
               >
                 {item.type === 'cloudinary-video' ? (
                   <div className="relative w-full bg-black rounded-xl overflow-hidden">
@@ -127,8 +127,8 @@ const Gallery = () => {
                       loading="lazy"
                       className="w-full h-auto object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center gap-3 backdrop-blur-[2px]">
-                      <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center gap-3 md:backdrop-blur-[2px]">
+                      <div className="w-14 h-14 rounded-full bg-white/10 md:backdrop-blur-md flex items-center justify-center border border-white/20 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
                         <ZoomIn className="w-6 h-6 text-white" />
                       </div>
                       {item.caption && (

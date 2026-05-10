@@ -178,7 +178,7 @@ const Portfolio = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.5, delay: index * 0.05 }}
-                    className="group relative aspect-[4/5] overflow-hidden cursor-pointer bg-gray-200 dark:bg-neutral-900 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 transform-gpu will-change-transform"
+                    className="group relative aspect-[4/5] overflow-hidden cursor-pointer bg-gray-200 dark:bg-neutral-900 rounded-2xl shadow-md hover:shadow-2xl transition-[box-shadow,transform] duration-500 transform-gpu will-change-transform"
                     onClick={() => setSelectedVideo(item.videoUrl)}
                   >
                     <img 
@@ -189,8 +189,8 @@ const Portfolio = () => {
                     />
                     
                     {/* Premium Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 backdrop-blur-[2px]">
-                      <div className="translate-y-6 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 md:backdrop-blur-[2px]">
+                      <div className="translate-y-6 group-hover:translate-y-0 transition-transform duration-500 ease-out transform-gpu">
                         <span className="text-gold-500 text-xs font-bold tracking-[0.3em] uppercase mb-3 block">
                           {item.category}
                         </span>
@@ -200,7 +200,7 @@ const Portfolio = () => {
 
                     {/* Play Button Icon */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      <div className="w-20 h-20 rounded-full bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center scale-50 group-hover:scale-100 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+                      <div className="w-20 h-20 rounded-full bg-white/10 border border-white/20 md:backdrop-blur-md flex items-center justify-center scale-50 group-hover:scale-100 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform-gpu">
                         <Play className="w-8 h-8 text-white fill-white translate-x-1" />
                       </div>
                     </div>

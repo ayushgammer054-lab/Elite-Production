@@ -50,9 +50,9 @@ const Navbar = ({ theme, toggleTheme }) => {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-500 transform-gpu ${
         isScrolled
-          ? 'bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-2xl py-4 shadow-[0_4px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-black/5 dark:border-white/10'
+          ? 'bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md md:backdrop-blur-2xl py-4 shadow-[0_4px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-black/5 dark:border-white/10'
           : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-6'
       }`}
     >
@@ -131,7 +131,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="absolute top-full left-0 w-full bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-black/5 dark:border-white/5 flex flex-col px-6 shadow-2xl overflow-hidden md:hidden"
+            className="absolute top-full left-0 w-full bg-white/95 dark:bg-[#0a0a0a]/95 border-b border-black/5 dark:border-white/5 flex flex-col px-6 shadow-2xl overflow-hidden md:hidden transform-gpu will-change-transform"
           >
             <div className="py-6 flex flex-col gap-6">
               {navLinks.map((link) => (
