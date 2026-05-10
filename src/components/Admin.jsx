@@ -596,6 +596,7 @@ const CinematicTab = () => {
   const [status, setStatus] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadPct, setUploadPct] = useState(0);
+  const [videoMode, setVideoMode] = useState('youtube'); // 'youtube' | 'cloudinary'
 
   useEffect(() => {
     getDoc(doc(db, 'siteConfig', 'cinematic')).then(d => {
@@ -618,17 +619,17 @@ const CinematicTab = () => {
       <StatusBanner status={status} />
       {/* Source toggle */}
       <div className="flex gap-2 p-1 bg-gray-100 dark:bg-white/5 rounded-xl w-fit">
-        <button type="button" onClick={() => setForm(f => ({ ...f, cloudinaryUrl: '' }))}
-          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${!form.cloudinaryUrl ? 'bg-gold-500 text-black shadow' : 'text-gray-500 hover:text-gold-500'}`}>
+        <button type="button" onClick={() => setVideoMode('youtube')}
+          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${videoMode === 'youtube' ? 'bg-gold-500 text-black shadow' : 'text-gray-500 hover:text-gold-500'}`}>
           ▶ YouTube
         </button>
-        <button type="button" onClick={() => setForm(f => ({ ...f, videoId: '' }))}
-          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${form.cloudinaryUrl ? 'bg-gold-500 text-black shadow' : 'text-gray-500 hover:text-gold-500'}`}>
+        <button type="button" onClick={() => setVideoMode('cloudinary')}
+          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${videoMode === 'cloudinary' ? 'bg-gold-500 text-black shadow' : 'text-gray-500 hover:text-gold-500'}`}>
           ☁️ Cloudinary
         </button>
       </div>
 
-      {!form.cloudinaryUrl ? (
+      {videoMode === 'youtube' ? (
         <div>
           <label className={labelCls}>YouTube Link or Video ID</label>
           <input
