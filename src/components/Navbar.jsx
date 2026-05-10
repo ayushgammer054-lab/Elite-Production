@@ -59,7 +59,12 @@ const Navbar = ({ theme, toggleTheme }) => {
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
         <button onClick={() => scrollToSection('home')} className="flex items-center gap-2 group outline-none">
-          <img src="/logo-transparent.png" alt="Elite Studio" className="h-16 md:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-md" />
+          <img
+            src="/logo-transparent.png"
+            alt="Elite Studio"
+            className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            style={{ filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.4)) brightness(1.1)' }}
+          />
         </button>
 
         <div className="flex items-center gap-6">
