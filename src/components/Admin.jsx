@@ -477,12 +477,34 @@ const HeroTab = () => {
         <textarea rows={3} value={form.subtitle} onChange={e => setForm({ ...form, subtitle: e.target.value })} placeholder="Elevating weddings..." className={inputCls} />
       </div>
       <div>
-        <label className={labelCls}>Background Video URL (.mp4)</label>
-        <input value={form.videoUrl} onChange={e => setForm({ ...form, videoUrl: e.target.value })} placeholder="https://..." className={inputCls} />
+        <label className={labelCls}>Background Video (.mp4)</label>
+        <div className="flex gap-2">
+          <input value={form.videoUrl} onChange={e => setForm({ ...form, videoUrl: e.target.value })} placeholder="Paste URL or upload via Cloudinary →" className={`${inputCls} flex-1`} />
+          <label className="shrink-0 flex items-center gap-1.5 px-3 py-2 bg-blue-500 hover:bg-blue-400 text-white text-xs font-semibold rounded-lg cursor-pointer transition-colors whitespace-nowrap">
+            ☁️ Upload Video
+            <input type="file" accept="video/*" className="hidden" onChange={async (e) => {
+              const f = e.target.files[0]; if (!f) return;
+              try { const { url } = await uploadToCloudinary(f, () => {}); setForm(prev => ({ ...prev, videoUrl: url })); }
+              catch (err) { alert('Upload error: ' + err.message); }
+            }} />
+          </label>
+        </div>
+        {form.videoUrl?.includes('cloudinary') && <p className="text-[10px] text-emerald-500 mt-1">☁️ Cloudinary video</p>}
       </div>
       <div>
-        <label className={labelCls}>Poster Image URL (shown while video loads)</label>
-        <input value={form.posterUrl} onChange={e => setForm({ ...form, posterUrl: e.target.value })} placeholder="https://images.unsplash.com/..." className={inputCls} />
+        <label className={labelCls}>Poster Image (shown while video loads)</label>
+        <div className="flex gap-2">
+          <input value={form.posterUrl} onChange={e => setForm({ ...form, posterUrl: e.target.value })} placeholder="Paste URL or upload via Cloudinary →" className={`${inputCls} flex-1`} />
+          <label className="shrink-0 flex items-center gap-1.5 px-3 py-2 bg-blue-500 hover:bg-blue-400 text-white text-xs font-semibold rounded-lg cursor-pointer transition-colors whitespace-nowrap">
+            ☁️ Upload Image
+            <input type="file" accept="image/*" className="hidden" onChange={async (e) => {
+              const f = e.target.files[0]; if (!f) return;
+              try { const { url } = await uploadToCloudinary(f, () => {}); setForm(prev => ({ ...prev, posterUrl: url })); }
+              catch (err) { alert('Upload error: ' + err.message); }
+            }} />
+          </label>
+        </div>
+        {form.posterUrl?.includes('cloudinary') && <p className="text-[10px] text-emerald-500 mt-1">☁️ Cloudinary image</p>}
       </div>
       <button type="submit" className="bg-gold-500 hover:bg-gold-400 text-black font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
         <Save className="w-4 h-4" /> Save Hero Content
@@ -554,8 +576,10 @@ const AboutTab = () => {
 // CINEMATIC / SHOWREEL TAB
 // ═══════════════════════════════════════════════════════════════════════════════
 const CinematicTab = () => {
-  const [form, setForm] = useState({ videoId: '', title: '', titleItalic: '', subtitle: '' });
+  const [form, setForm] = useState({ videoId: '', cloudinaryUrl: '', title: '', titleItalic: '', subtitle: '' });
   const [status, setStatus] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadPct, setUploadPct] = useState(0);
 
   useEffect(() => {
     getDoc(doc(db, 'siteConfig', 'cinematic')).then(d => {
@@ -576,22 +600,68 @@ const CinematicTab = () => {
   return (
     <form onSubmit={handleSave} className="space-y-4">
       <StatusBanner status={status} />
-      <div>
-        <label className={labelCls}>YouTube Link or Video ID</label>
-        <input
-          value={form.videoId}
-          onChange={e => setForm({ ...form, videoId: extractYtId(e.target.value) })}
-          placeholder="Paste any YouTube link or Video ID..."
-          className={inputCls}
-          required
-        />
-        {form.videoId && (
-          <p className="text-[11px] text-emerald-500 mt-1.5">✓ Video ID: <span className="font-mono">{form.videoId}</span></p>
-        )}
-        <p className="text-[11px] text-gray-400 mt-1">
-          Works with: youtu.be/ID · youtube.com/watch?v=ID · youtube.com/shorts/ID · or paste ID directly
-        </p>
+      {/* Source toggle */}
+      <div className="flex gap-2 p-1 bg-gray-100 dark:bg-white/5 rounded-xl w-fit">
+        <button type="button" onClick={() => setForm(f => ({ ...f, cloudinaryUrl: '' }))}
+          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${!form.cloudinaryUrl ? 'bg-gold-500 text-black shadow' : 'text-gray-500 hover:text-gold-500'}`}>
+          ▶ YouTube
+        </button>
+        <button type="button" onClick={() => setForm(f => ({ ...f, videoId: '' }))}
+          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${form.cloudinaryUrl ? 'bg-gold-500 text-black shadow' : 'text-gray-500 hover:text-gold-500'}`}>
+          ☁️ Cloudinary
+        </button>
       </div>
+
+      {!form.cloudinaryUrl ? (
+        <div>
+          <label className={labelCls}>YouTube Link or Video ID</label>
+          <input
+            value={form.videoId}
+            onChange={e => setForm({ ...form, videoId: extractYtId(e.target.value) })}
+            placeholder="Paste any YouTube link or Video ID..."
+            className={inputCls}
+          />
+          {form.videoId && <p className="text-[11px] text-emerald-500 mt-1.5">✓ ID: <span className="font-mono">{form.videoId}</span></p>}
+          <p className="text-[11px] text-gray-400 mt-1">youtu.be/ID · youtube.com/watch?v=ID · youtube.com/shorts/ID</p>
+        </div>
+      ) : (
+        <div>
+          <label className={labelCls}>Cloudinary Video</label>
+          {form.cloudinaryUrl ? (
+            <div className="flex items-center gap-3 p-3 bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200 dark:border-emerald-700/30 rounded-lg">
+              <span className="text-emerald-600 text-sm flex-1 truncate">☁️ {form.cloudinaryUrl.split('/').pop()}</span>
+              <button type="button" onClick={() => setForm(f => ({ ...f, cloudinaryUrl: '' }))}
+                className="text-red-400 hover:text-red-600 text-xs">Remove</button>
+            </div>
+          ) : (
+            <label className={`flex flex-col items-center justify-center border-2 border-dashed rounded-xl cursor-pointer p-6 text-center transition-all ${uploading ? 'border-gold-500/50 bg-gold-500/5' : 'border-gray-300 dark:border-white/10 hover:border-gold-500/60'}`}>
+              {uploading ? (
+                <div className="w-full">
+                  <p className="text-sm text-gold-500 font-medium mb-2">Uploading... {uploadPct}%</p>
+                  <div className="h-2 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-gold-500 rounded-full transition-all" style={{ width: `${uploadPct}%` }} />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <span className="text-3xl mb-2">🎬</span>
+                  <p className="text-sm text-gray-500"><span className="text-gold-500 font-semibold">Click to upload</span> showreel video</p>
+                  <p className="text-xs text-gray-400 mt-1">MP4, MOV, WebM — no ads, no YouTube branding</p>
+                </>
+              )}
+              <input type="file" accept="video/*" className="hidden" disabled={uploading} onChange={async (e) => {
+                const f = e.target.files[0]; if (!f) return;
+                setUploading(true);
+                try {
+                  const { url } = await uploadToCloudinary(f, setUploadPct);
+                  setForm(prev => ({ ...prev, cloudinaryUrl: url }));
+                } catch (err) { alert('Upload error: ' + err.message); }
+                setUploading(false); setUploadPct(0);
+              }} />
+            </label>
+          )}
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className={labelCls}>Section Title (normal)</label>
