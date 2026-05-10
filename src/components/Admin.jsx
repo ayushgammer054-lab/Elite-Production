@@ -1193,8 +1193,8 @@ const Admin = () => {
           animate={{ opacity: 1, y: 0 }}
           className="w-full max-w-md bg-white dark:bg-[#111] border border-gray-200 dark:border-white/5 rounded-2xl shadow-2xl overflow-hidden"
         >
-          <div className="p-8 bg-black text-center">
-            <Camera className="w-10 h-10 text-gold-500 mx-auto mb-3" />
+          <div className="p-8 bg-black text-center flex flex-col items-center">
+            <img src="/logo-transparent.png" alt="Elite Studio" className="h-16 w-auto object-contain drop-shadow-md mb-4" />
             <h1 className="text-2xl font-serif text-white">Admin Access</h1>
             <p className="text-gray-400 text-sm mt-1">Elite Studio Control Panel</p>
           </div>
@@ -1235,9 +1235,11 @@ const Admin = () => {
 
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-serif text-black dark:text-white">Elite Studio</h1>
-            <p className="text-gray-400 text-xs mt-0.5 uppercase tracking-wider">Admin Panel</p>
+          <div className="flex items-center gap-3">
+            <img src="/logo-transparent.png" alt="Elite Studio" className="h-10 md:h-12 w-auto object-contain drop-shadow-md" />
+            <div>
+              <p className="text-gray-400 text-xs uppercase tracking-wider mt-1">Admin Panel</p>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gold-500 transition-colors bg-gray-100 dark:bg-white/5 px-3 py-2 rounded-lg">
