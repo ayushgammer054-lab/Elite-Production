@@ -552,9 +552,25 @@ const AboutTab = () => {
           <label className={labelCls}>Years of Experience</label>
           <input value={form.yearsOfExperience} onChange={e => setForm({ ...form, yearsOfExperience: e.target.value })} placeholder="5+" className={inputCls} />
         </div>
-        <div>
-          <label className={labelCls}>Portrait Image URL</label>
-          <input value={form.portraitUrl} onChange={e => setForm({ ...form, portraitUrl: e.target.value })} placeholder="/videographer_portrait.png" className={inputCls} />
+        <div className="md:col-span-2">
+          <label className={labelCls}>Portrait / Profile Image</label>
+          {form.portraitUrl && (
+            <img src={form.portraitUrl} alt="Portrait preview" className="w-24 h-32 object-cover rounded-xl mb-2 border border-gray-200 dark:border-white/10" onError={e => e.target.style.display='none'} />
+          )}
+          <div className="flex gap-2">
+            <input value={form.portraitUrl} onChange={e => setForm({ ...form, portraitUrl: e.target.value })} placeholder="Paste URL or upload via Cloudinary →" className={`${inputCls} flex-1`} />
+            <label className="shrink-0 flex items-center gap-1.5 px-3 py-2 bg-blue-500 hover:bg-blue-400 text-white text-xs font-semibold rounded-lg cursor-pointer transition-colors whitespace-nowrap">
+              ☁️ Upload Photo
+              <input type="file" accept="image/*" className="hidden" onChange={async (e) => {
+                const f = e.target.files[0]; if (!f) return;
+                try {
+                  const { url } = await uploadToCloudinary(f, () => {});
+                  setForm(prev => ({ ...prev, portraitUrl: url }));
+                } catch (err) { alert('Upload error: ' + err.message); }
+              }} />
+            </label>
+          </div>
+          {form.portraitUrl?.includes('cloudinary') && <p className="text-[10px] text-emerald-500 mt-1">☁️ Cloudinary image</p>}
         </div>
       </div>
       <div>
