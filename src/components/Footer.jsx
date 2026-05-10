@@ -39,11 +39,8 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-10 mb-16">
 
           <div className="flex flex-col items-center md:items-start gap-3">
-            <div className="flex items-center gap-2 group cursor-pointer">
-              <Camera className="w-8 h-8 text-gold-500 group-hover:scale-110 transition-transform duration-300" />
-              <span className="text-2xl font-serif font-bold text-black dark:text-white tracking-wider transition-colors duration-300">
-                ELITE<span className="text-gold-500 font-light">STUDIO</span>
-              </span>
+            <div className="flex items-center gap-2 group cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+              <img src="/logo-transparent.png" alt="Elite Studio" className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-lg" />
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 text-center md:text-left uppercase tracking-widest max-w-xs">
               Premium Wedding &amp; Cinematic Production
