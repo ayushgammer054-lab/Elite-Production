@@ -59,10 +59,7 @@ const Navbar = ({ theme, toggleTheme }) => {
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
         <button onClick={() => scrollToSection('home')} className="flex items-center gap-2 group outline-none">
-          <Camera className="w-8 h-8 text-gold-500 group-hover:text-gold-400 group-hover:scale-110 transition-all duration-300" />
-          <span className={`text-2xl font-serif font-bold tracking-widest transition-colors duration-300 ${isScrolled ? 'text-black dark:text-white' : 'text-white drop-shadow-md'}`}>
-            ELITE<span className="text-gold-500 font-light">STUDIO</span>
-          </span>
+          <img src="/logo-transparent.png" alt="Elite Studio" className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-md" />
         </button>
 
         <div className="flex items-center gap-6">
