@@ -103,8 +103,8 @@ const Portfolio = () => {
   return (
     <section id="portfolio" className="py-32 bg-gray-50 dark:bg-[#050505] relative transition-colors duration-300 overflow-hidden">
       {/* Background accents */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[150px] pointer-events-none transform-gpu will-change-transform" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[150px] pointer-events-none transform-gpu will-change-transform" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="text-center mb-20">
@@ -178,7 +178,7 @@ const Portfolio = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.5, delay: index * 0.05 }}
-                    className="group relative aspect-[4/5] overflow-hidden cursor-pointer bg-gray-200 dark:bg-neutral-900 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500"
+                    className="group relative aspect-[4/5] overflow-hidden cursor-pointer bg-gray-200 dark:bg-neutral-900 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 transform-gpu will-change-transform"
                     onClick={() => setSelectedVideo(item.videoUrl)}
                   >
                     <img 

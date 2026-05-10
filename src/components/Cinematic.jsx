@@ -61,7 +61,7 @@ const Cinematic = () => {
     <section ref={sectionRef} id="showreel" className="py-24 md:py-32 bg-[#050505] relative overflow-hidden">
       {/* Ambient glow & Noise */}
       <div className="noise" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold-500/10 rounded-full blur-[150px] pointer-events-none cinematic-glow" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold-500/10 rounded-full blur-[150px] pointer-events-none cinematic-glow transform-gpu will-change-transform" />
 
       <div className="container mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         {/* Header */}

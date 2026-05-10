@@ -52,11 +52,11 @@ const ServiceCard = ({ svc, icon, index }) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      className="group relative bg-white dark:bg-[#0a0a0a] p-10 transition-all duration-500 hover:-translate-y-2 rounded-2xl border border-gray-100 dark:border-white/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_40px_rgba(212,175,55,0.08)] dark:hover:shadow-[0_20px_40px_rgba(212,175,55,0.05)] overflow-hidden"
+      className="group relative bg-white dark:bg-[#0a0a0a] p-10 transition-all duration-500 hover:-translate-y-2 rounded-2xl border border-gray-100 dark:border-white/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_40px_rgba(212,175,55,0.08)] dark:hover:shadow-[0_20px_40px_rgba(212,175,55,0.05)] overflow-hidden transform-gpu will-change-transform"
     >
       {/* Spotlight hover effect */}
       <div
-        className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+        className="absolute inset-0 pointer-events-none transition-opacity duration-300 hidden md:block"
         style={{
           background: isHovering 
             ? `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(212,175,55,0.08), transparent 40%)` 
@@ -98,8 +98,8 @@ const Services = () => {
   return (
     <section id="services" className="py-32 bg-gray-50 dark:bg-[#050505] relative overflow-hidden transition-colors duration-300">
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.03]" />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gold-500/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[120px] pointer-events-none transform-gpu will-change-transform" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gold-500/5 rounded-full blur-[150px] pointer-events-none transform-gpu will-change-transform" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="text-center mb-20">
