@@ -6,6 +6,7 @@ import { db } from '../firebase';
 
 const DEFAULTS = {
   videoId: 'dQw4w9WgXcQ',
+  cloudinaryUrl: '',
   title: 'Our Cinematic',
   titleItalic: 'Showreel',
   subtitle: 'A glimpse into the stories we have told — weddings, emotions, and moments frozen in time.',
@@ -106,31 +107,31 @@ const Cinematic = () => {
 
           {/* Video wrapper — 16:9 */}
           <div className="relative w-full aspect-video bg-[#0a0a0a] rounded-2xl overflow-hidden ring-1 ring-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-            {!started ? (
+            {content.cloudinaryUrl ? (
+              /* Cloudinary video — no ads, no branding */
+              <video
+                src={content.cloudinaryUrl}
+                autoPlay
+                muted={muted}
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : !started ? (
               <img
                 src={`https://img.youtube.com/vi/${content.videoId}/maxresdefault.jpg`}
                 alt="Showreel thumbnail"
                 className="absolute inset-0 w-full h-full object-cover opacity-60"
               />
             ) : (
-              <>
-                <iframe
-                  key={iframeKey}
-                  src={buildSrc(muted)}
-                  title="Elite Studio Showreel"
-                  className="absolute inset-0 w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-                {/* Hide top bar: title, channel, CC, settings */}
-                <div className="absolute top-0 left-0 right-0 h-[42px] bg-black pointer-events-none z-10" />
-                {/* Hide YouTube logo (bottom right, above controls) */}
-                <div className="absolute bottom-[38px] right-0 w-[110px] h-[32px] bg-black pointer-events-none z-10" />
-                {/* Hide "More videos" button (top right on hover) */}
-                <div className="absolute top-[42px] right-0 w-[140px] h-[44px] bg-black pointer-events-none z-10" />
-                {/* Hide endscreen "More videos" cards (covers top-right quadrant at video end) */}
-                <div className="absolute top-[42px] right-0 w-[55%] h-[75%] pointer-events-none z-[5]" />
-              </>
+              <iframe
+                key={iframeKey}
+                src={buildSrc(muted)}
+                title="Elite Studio Showreel"
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             )}
           </div>
         </motion.div>
